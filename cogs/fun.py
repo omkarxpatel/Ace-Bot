@@ -5,6 +5,7 @@ import re
 from io import BytesIO
 from utils import buttons
 from discord.ext import commands
+from utils import slash_util
 
 
 def setup(bot):
@@ -216,5 +217,4 @@ class FunClass(commands.Cog, name="<:controller:915124129257111582> Fun Help", d
         """
         async with ctx.typing():
             return await ctx.send(embed=await self.reddit(random.choice(['memes', 'dankmemes'])))
-
 

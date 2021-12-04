@@ -4,6 +4,7 @@ import sys
 import aiohttp
 import discord
 import traceback
+from utils import slash_util
 from pathlib import Path
 from colorama import Fore
 from discord.ext import commands
@@ -14,7 +15,7 @@ from motor.motor_asyncio import AsyncIOMotorClient as MotorClient
 def restart_bot():
     os.execv(sys.executable, ['python'] + sys.argv)
 
-class MyBot(commands.Bot):
+class MyBot(slash_util.Bot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.bot_session = aiohttp.ClientSession()

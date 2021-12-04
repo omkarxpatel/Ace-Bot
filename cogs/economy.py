@@ -317,7 +317,7 @@ class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
         total = request['balance'] + bet3x
         data = {"balance": total}
         embed = discord.Embed(title=f'{ctx.author.name}\'s winning gambling game', description=f'You won {spades} `{bet3x}`\n \n**Precent Won:** `300%`\n**New Balance:** {spades} `{total}`', color = discord.Color.green(), timestamp=discord.utils.utcnow())
-        embed.set_footer(text='Developer: {}' .format(ctx.message.author))
+        embed.set_footer(text='User: {}' .format(ctx.message.author))
         embed.add_field(name=f'**{ctx.author.name}**', value=f'Rolled `{die1}`')
         embed.add_field(name=f'**Ace Bot**', value=f'Rolled `{die2}`')
         await self.bot.db.economy.update_one({"_id": ctx.author.id}, {"$set": data})
@@ -326,7 +326,7 @@ class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
         total = request['balance'] - amount
         data = {"balance": total}
         embed = discord.Embed(title=f'{ctx.author.name}\'s losing gambling game', description=f'You lost {spades} `{amount}`\n \n**New Balance:** {spades} `{total}`', timestamp=discord.utils.utcnow(), color = discord.Color.red())
-        embed.set_footer(text='Developer: {}' .format(ctx.message.author))
+        embed.set_footer(text='User: {}' .format(ctx.message.author))
         embed.add_field(name=f'**{ctx.author.name}**', value=f'Rolled `{die1}`')
         embed.add_field(name=f'**Ace Bot**', value=f'Rolled `{die2}`')
         await self.bot.db.economy.update_one({"_id": ctx.author.id}, {"$set": data})

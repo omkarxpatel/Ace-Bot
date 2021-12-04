@@ -39,7 +39,7 @@ class Utility(commands.Cog, name="<:users:907302669922738187> Utility Help", com
 
         
     @commands.command(aliases=['av', 'pfp'])
-    async def avatar(ctx: commands.Context, member: typing.Union[discord.Member, discord.User] = None):
+    async def avatar(self, ctx: commands.Context, member: typing.Union[discord.Member, discord.User] = None):
         """Displays a user's avatar"""
         user = member or ctx.author
         embed = discord.Embed(title='Showing avatar for {}'.format(user.name))
