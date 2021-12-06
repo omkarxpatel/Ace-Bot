@@ -15,7 +15,10 @@ from contextlib import redirect_stdout
 def setup(bot):
     bot.add_cog(DeveloperCog(bot))
 
-class DeveloperCog(commands.Cog, name="<:developerdarkblue:915125525889036299> Developer Help", command_attrs=dict(alias=['dev', 'developer']), description="Commands that only the developers of the bot can use\n`{prefix}help dev`\n`{prefix}help developer`"):
+class DeveloperCog(commands.Cog, name="<:developerdarkblue:915125525889036299> Developer", command_attrs=dict(alias=['dev', 'developer'], emoji="<:developerdarkblue:915125525889036299>"), description="Commands that only the developers of the bot can use\n`{prefix}help dev`\n`{prefix}help developer`"):
+    """
+    Commands that only the developers of the bot can use
+    """
     def __init__(self, bot):
         self.bot = bot
         self._last_result = None

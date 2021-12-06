@@ -1,0 +1,176 @@
+2021-12-05 20:16:26.419  INFO 5862 --- [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        3.4
+	Build:          1257
+	Build time:     26.10.2021 14:18:37 UTC
+	Branch          master
+	Commit:         a364833
+	Commit time:    26.10.2021 14:15:20 UTC
+	JVM:            11.0.11
+	Lavaplayer      1.3.96-original
+
+2021-12-05 20:16:27.674  INFO 5862 --- [main] lavalink.server.Launcher                 : Starting Launcher on 3f5616e742da with PID 5862 (/home/runner/Ace-Bot/Lavalink.jar started by runner in /home/runner/Ace-Bot)
+2021-12-05 20:16:27.676  INFO 5862 --- [main] lavalink.server.Launcher                 : No active profile set, falling back to default profiles: default
+2021-12-05 20:16:28.482  WARN 5862 --- [background-preinit] o.s.h.c.j.Jackson2ObjectMapperBuilder    : For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2021-12-05 20:16:40.367  WARN 5862 --- [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2021-12-05 20:16:40.802  INFO 5862 --- [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2021-12-05 20:16:40.802  INFO 5862 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 12551 ms
+2021-12-05 20:16:43.953  WARN 5862 --- [main] l.server.config.SentryConfiguration      : Turning off sentry
+2021-12-05 20:16:46.628  INFO 5862 --- [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2021-12-05 20:16:48.819  INFO 5862 --- [main] lavalink.server.config.KoeConfiguration  : OS: Linux, Arch: amd64
+2021-12-05 20:16:48.825  INFO 5862 --- [main] lavalink.server.config.KoeConfiguration  : Enabling JDA-NAS
+2021-12-05 20:16:48.836  INFO 5862 --- [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2021-12-05 20:16:48.847  INFO 5862 --- [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2021-12-05 20:16:51.949  INFO 5862 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-12-05 20:16:56.487  INFO 5862 --- [main] org.xnio                                 : XNIO version 3.3.8.Final
+2021-12-05 20:16:56.591  INFO 5862 --- [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.3.8.Final
+2021-12-05 20:16:57.023  INFO 5862 --- [main] o.s.b.w.e.u.UndertowServletWebServer     : Undertow started on port(s) 7000 (http) with context path ''
+2021-12-05 20:16:57.034  INFO 5862 --- [main] lavalink.server.Launcher                 : Started Launcher in 37.295 seconds (JVM running for 40.955)
+2021-12-05 20:16:57.040  INFO 5862 --- [main] lavalink.server.Launcher                 : You can safely ignore the big red warning about illegal reflection. See https://github.com/freyacodes/Lavalink/issues/295
+2021-12-05 20:16:57.749  INFO 5862 --- [XNIO-1 task-1] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-12-05 20:16:57.752  INFO 5862 --- [XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-12-05 20:16:57.859  INFO 5862 --- [XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 106 ms
+2021-12-05 20:16:58.086 ERROR 5862 --- [XNIO-1 task-1] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:35556
+2021-12-05 20:16:58.256 ERROR 5862 --- [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:45336
+2021-12-05 20:17:28.907  INFO 5862 --- [XNIO-1 task-3] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:43258
+2021-12-05 20:17:29.191  INFO 5862 --- [XNIO-1 task-3] lavalink.server.io.SocketServer          : Connection successfully established from Lavalink.py
+2021-12-05 20:17:29.379  INFO 5862 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : {"op": "configureResuming", "key": "music-node", "timeout": 60}
+2021-12-05 20:17:38.136  INFO 5862 --- [XNIO-1 task-4] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:mom"
+2021-12-05 20:17:41.668  INFO 5862 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: mom
+2021-12-05 20:17:47.988  INFO 5862 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : {"op": "play", "guildId": "897667014796144661", "track": "QAAAxgIAY0RBRCB2cyBLaURTIGRheSAxIC0gTW9tIGdvZXMgdG8gRGlTTkVZTEFORCEhICBOYXZleSBpcyB3YWxraW5nISBBZGxleSBpcyBEYW5jaW5nISAmIE5pa28gbG9zdCBhIGxpZAAJU2hvbmR1cmFzAAAAAAAdqcAAC0lOUjd5VHlGS3gwAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9SU5SN3lUeUZLeDAAB3lvdXR1YmUAAAAAAAAAAA==", "startTime": 0, "endTime": 0, "noReplace": false}
+2021-12-05 20:18:27.675  INFO 5862 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:43258 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60 seconds with key music-node
+2021-12-05 20:18:31.859 ERROR 5862 --- [XNIO-1 task-6] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:47602
+2021-12-05 20:18:32.576 ERROR 5862 --- [XNIO-1 task-7] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:58766
+2021-12-05 20:18:46.633  WARN 5862 --- [lava-daemon-pool-manager-3-thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : Suspicious GC results for the last 2 minutes: [Bucket 0 = 12] [Bucket 20 = 4] [Bucket 50 = 2] [Bucket 200 = 1] [Bucket 500 = 0] [Bucket 2000 = 0] 
+2021-12-05 20:19:27.680  INFO 5862 --- [pool-1-thread-1] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-12-05 20:19:29.279 ERROR 5862 --- [XNIO-1 task-8] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:36768
+2021-12-05 20:19:49.663 ERROR 5862 --- [XNIO-1 task-9] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:41548
+2021-12-05 20:21:16.662 ERROR 5862 --- [XNIO-1 task-10] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:39354
+2021-12-05 20:21:19.559 ERROR 5862 --- [XNIO-1 task-11] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:39354
+2021-12-05 20:21:25.932 ERROR 5862 --- [XNIO-1 task-12] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:46046
+2021-12-05 20:22:28.874 ERROR 5862 --- [XNIO-1 task-13] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:53050
+2021-12-05 20:22:38.446 ERROR 5862 --- [XNIO-1 task-14] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:54006
+2021-12-05 20:22:52.126 ERROR 5862 --- [XNIO-1 task-15] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:50184
+2021-12-05 20:23:07.641 ERROR 5862 --- [XNIO-1 task-16] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:52034
+2021-12-05 20:23:14.058  INFO 5862 --- [XNIO-1 task-1] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:44336
+2021-12-05 20:23:14.082  INFO 5862 --- [XNIO-1 task-1] lavalink.server.io.SocketServer          : Connection successfully established from Lavalink.py
+2021-12-05 20:23:14.113  INFO 5862 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : {"op": "configureResuming", "key": "music-node", "timeout": 60}
+2021-12-05 20:24:39.757  INFO 5862 --- [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:20"
+2021-12-05 20:24:40.542  INFO 5862 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: 20
+2021-12-05 20:24:43.823  INFO 5862 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : {"op": "play", "guildId": "897667014796144661", "track": "QAAAmAIANDIwIFNlY3JldHMgWU9VIE1JU1NFRCBJbiBGb3J0bml0ZSdzIENIQVBURVIgMyBFVkVOVCEAClRvcDVHYW1pbmcAAAAAAAgp2AALV2J6bTdmR0lKLUkAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1XYnptN2ZHSUotSQAHeW91dHViZQAAAAAAAAAA", "startTime": 0, "endTime": 0, "noReplace": false}
+2021-12-05 20:24:46.628  WARN 5862 --- [lava-daemon-pool-manager-3-thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : Suspicious GC results for the last 2 minutes: [Bucket 0 = 2] [Bucket 20 = 0] [Bucket 50 = 0] [Bucket 200 = 1] [Bucket 500 = 0] [Bucket 2000 = 0] 
+2021-12-05 20:24:49.370 ERROR 5862 --- [XNIO-1 task-4] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:53990
+2021-12-05 20:25:20.694  INFO 5862 --- [XNIO-1 task-5] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:2000?"
+2021-12-05 20:25:21.169  INFO 5862 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: 2000?
+2021-12-05 20:25:24.048  INFO 5862 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : {"op": "play", "guildId": "897667014796144661", "track": "QAAAoAIAMzIwMDAncyBNdXNpYyBIaXRzIE1peCDtoLztvrUgQmVzdCBTb25ncyBvZiB0aGUgMDAncwATUmVkbGlzdCAtIFRvcCBNaXhlcwAAAAAATPsIAAtTNGJxVWxwbkYyMAABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PVM0YnFVbHBuRjIwAAd5b3V0dWJlAAAAAAAAAAA=", "startTime": 0, "endTime": 0, "noReplace": false}
+2021-12-05 20:26:30.687  INFO 5862 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:44336 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60 seconds with key music-node
+2021-12-05 20:26:34.530 ERROR 5862 --- [XNIO-1 task-7] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:48714
+2021-12-05 20:26:35.274 ERROR 5862 --- [XNIO-1 task-8] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:52558
+2021-12-05 20:26:49.777  INFO 5862 --- [XNIO-1 task-9] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:44958
+2021-12-05 20:26:49.784  INFO 5862 --- [XNIO-1 task-9] lavalink.server.io.SocketServer          : Connection successfully established from Lavalink.py
+2021-12-05 20:26:49.789  INFO 5862 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : {"op": "configureResuming", "key": "music-node", "timeout": 60}
+2021-12-05 20:27:30.688  INFO 5862 --- [pool-2-thread-1] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-12-05 20:28:15.605  INFO 5862 --- [Thread-1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-12-05 20:28:15.607  INFO 5862 --- [Thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
+2021-12-05 20:28:15.628  INFO 5862 --- [Thread-1] io.undertow.servlet                      : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2021-12-05 20:28:15.725 ERROR 5862 --- [XNIO-1 I/O-1] org.xnio.listener                        : XNIO001007: A channel event listener threw an exception
+
+java.util.concurrent.RejectedExecutionException: XNIO007007: Thread is terminating
+	at org.xnio.nio.WorkerThread.execute(WorkerThread.java:590) ~[xnio-nio-3.3.8.Final.jar!/:3.3.8.Final]
+	at io.undertow.websockets.jsr.UndertowSession$3.handleEvent(UndertowSession.java:396) ~[undertow-websockets-jsr-2.0.26.Final.jar!/:2.0.26.Final]
+	at io.undertow.websockets.jsr.UndertowSession$3.handleEvent(UndertowSession.java:388) ~[undertow-websockets-jsr-2.0.26.Final.jar!/:2.0.26.Final]
+	at org.xnio.ChannelListeners.invokeChannelListener(ChannelListeners.java:92) ~[xnio-api-3.3.8.Final.jar!/:3.3.8.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedChannel$FrameCloseListener.handleEvent(AbstractFramedChannel.java:1063) ~[undertow-core-2.0.26.Final.jar!/:2.0.26.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedChannel$FrameCloseListener.handleEvent(AbstractFramedChannel.java:978) ~[undertow-core-2.0.26.Final.jar!/:2.0.26.Final]
+	at org.xnio.ChannelListeners.invokeChannelListener(ChannelListeners.java:92) ~[xnio-api-3.3.8.Final.jar!/:3.3.8.Final]
+	at org.xnio.conduits.WriteReadyHandler$ChannelListenerHandler.terminated(WriteReadyHandler.java:70) ~[xnio-api-3.3.8.Final.jar!/:3.3.8.Final]
+	at org.xnio.nio.NioSocketConduit.writeTerminated(NioSocketConduit.java:234) ~[xnio-nio-3.3.8.Final.jar!/:3.3.8.Final]
+	at org.xnio.nio.NioSocketConduit.terminateWrites(NioSocketConduit.java:223) ~[xnio-nio-3.3.8.Final.jar!/:3.3.8.Final]
+	at org.xnio.nio.NioSocketConduit.truncateWrites(NioSocketConduit.java:228) ~[xnio-nio-3.3.8.Final.jar!/:3.3.8.Final]
+	at io.undertow.conduits.IdleTimeoutConduit.truncateWrites(IdleTimeoutConduit.java:387) ~[undertow-core-2.0.26.Final.jar!/:2.0.26.Final]
+	at org.xnio.conduits.ConduitStreamSinkChannel.close(ConduitStreamSinkChannel.java:186) ~[xnio-api-3.3.8.Final.jar!/:3.3.8.Final]
+	at org.xnio.IoUtils.safeClose(IoUtils.java:134) ~[xnio-api-3.3.8.Final.jar!/:3.3.8.Final]
+	at org.xnio.conduits.WriteReadyHandler$ChannelListenerHandler.forceTermination(WriteReadyHandler.java:57) ~[xnio-api-3.3.8.Final.jar!/:3.3.8.Final]
+	at org.xnio.nio.NioSocketConduit.forceTermination(NioSocketConduit.java:107) ~[xnio-nio-3.3.8.Final.jar!/:3.3.8.Final]
+	at org.xnio.nio.WorkerThread.run(WorkerThread.java:494) ~[xnio-nio-3.3.8.Final.jar!/:3.3.8.Final]
+
+2021-12-05 20:31:22.860  INFO 6536 --- [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        3.4
+	Build:          1257
+	Build time:     26.10.2021 14:18:37 UTC
+	Branch          master
+	Commit:         a364833
+	Commit time:    26.10.2021 14:15:20 UTC
+	JVM:            11.0.11
+	Lavaplayer      1.3.96-original
+
+2021-12-05 20:31:23.646  INFO 6536 --- [main] lavalink.server.Launcher                 : Starting Launcher on 3f5616e742da with PID 6536 (/home/runner/Ace-Bot/Lavalink.jar started by runner in /home/runner/Ace-Bot)
+2021-12-05 20:31:23.647  INFO 6536 --- [main] lavalink.server.Launcher                 : No active profile set, falling back to default profiles: default
+2021-12-05 20:31:24.828  WARN 6536 --- [background-preinit] o.s.h.c.j.Jackson2ObjectMapperBuilder    : For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2021-12-05 20:31:33.935  WARN 6536 --- [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2021-12-05 20:31:34.120  INFO 6536 --- [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2021-12-05 20:31:34.121  INFO 6536 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 9875 ms
+2021-12-05 20:31:36.356  WARN 6536 --- [main] l.server.config.SentryConfiguration      : Turning off sentry
+2021-12-05 20:31:38.888  INFO 6536 --- [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2021-12-05 20:31:40.343  INFO 6536 --- [main] lavalink.server.config.KoeConfiguration  : OS: Linux, Arch: amd64
+2021-12-05 20:31:40.348  INFO 6536 --- [main] lavalink.server.config.KoeConfiguration  : Enabling JDA-NAS
+2021-12-05 20:31:40.369  INFO 6536 --- [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2021-12-05 20:31:40.380  INFO 6536 --- [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2021-12-05 20:31:42.263  INFO 6536 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-12-05 20:31:44.673  INFO 6536 --- [main] org.xnio                                 : XNIO version 3.3.8.Final
+2021-12-05 20:31:44.769  INFO 6536 --- [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.3.8.Final
+2021-12-05 20:31:45.255  INFO 6536 --- [main] o.s.b.w.e.u.UndertowServletWebServer     : Undertow started on port(s) 7000 (http) with context path ''
+2021-12-05 20:31:45.318  INFO 6536 --- [main] lavalink.server.Launcher                 : Started Launcher in 27.5 seconds (JVM running for 31.22)
+2021-12-05 20:31:45.322  INFO 6536 --- [main] lavalink.server.Launcher                 : You can safely ignore the big red warning about illegal reflection. See https://github.com/freyacodes/Lavalink/issues/295
+2021-12-05 20:31:45.636  INFO 6536 --- [XNIO-1 task-1] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-12-05 20:31:45.637  INFO 6536 --- [XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-12-05 20:31:45.720  INFO 6536 --- [XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 82 ms
+2021-12-05 20:31:45.876 ERROR 6536 --- [XNIO-1 task-1] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:33504
+2021-12-05 20:31:46.183 ERROR 6536 --- [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:60704
+2021-12-05 20:32:13.361 ERROR 6536 --- [XNIO-1 task-3] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:37206
+2021-12-05 20:32:13.796 ERROR 6536 --- [XNIO-1 task-4] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:39702
+2021-12-05 20:32:27.047  INFO 6536 --- [XNIO-1 task-5] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:46000
+2021-12-05 20:32:27.342  INFO 6536 --- [XNIO-1 task-5] lavalink.server.io.SocketServer          : Connection successfully established from Lavalink.py
+2021-12-05 20:32:27.518  INFO 6536 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : {"op": "configureResuming", "key": "music-node", "timeout": 60}
+2021-12-05 20:32:47.120  INFO 6536 --- [XNIO-1 task-6] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:1"
+2021-12-05 20:32:50.462  INFO 6536 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: 1
+2021-12-05 20:32:52.716  INFO 6536 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : {"op": "play", "guildId": "897667014796144661", "track": "QAAAwAIAWkJMVUUgVlMgUkVEIEZPT0QgQ0hBTExFTkdFIHx8IEVhdGluZyBPbmx5IDEgQ29sb3IgRm9vZCBGb3IgMjQgSFJTISBNdWtiYW5nIGJ5IDEyMyBHTyEgRk9PRAAMMTIzIEdPISBGT09EAAAAAAAHhcgACzR3SGFUUzd3c3ZrAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9NHdIYVRTN3dzdmsAB3lvdXR1YmUAAAAAAAAAAA==", "startTime": 0, "endTime": 0, "noReplace": false}
+2021-12-05 20:33:38.889  WARN 6536 --- [lava-daemon-pool-manager-3-thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : Suspicious GC results for the last 2 minutes: [Bucket 0 = 17] [Bucket 20 = 0] [Bucket 50 = 1] [Bucket 200 = 1] [Bucket 500 = 0] [Bucket 2000 = 0] 
+2021-12-05 20:34:44.167  INFO 6536 --- [XNIO-1 task-8] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:12"
+2021-12-05 20:34:44.592  INFO 6536 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: 12
+2021-12-05 20:34:46.497  INFO 6536 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : {"op": "play", "guildId": "897667014796144661", "track": "QAAAsgIATEdFTklVUyBDTEVBTklORyBIQUNLUyBUTyBNQUtFIFlPVVIgTElGRSBFQVNJRVIhIHx8IExhenkgSGFja3MgYnkgMTIgR28hIExpdmUADDEyMyBHTyEgTGl2ZQAAAAAACg44AAtqYWEyM0t6SGpvSQABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PWphYTIzS3pIam9JAAd5b3V0dWJlAAAAAAAAAAA=", "startTime": 0, "endTime": 0, "noReplace": false}
+2021-12-05 20:34:49.700 ERROR 6536 --- [XNIO-1 task-10] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:47338
+2021-12-05 20:35:02.416  INFO 6536 --- [XNIO-1 task-11] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:hi"
+2021-12-05 20:35:03.039  INFO 6536 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: hi
+2021-12-05 20:35:10.203  INFO 6536 --- [XNIO-1 task-13] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:6"
+2021-12-05 20:35:10.543  INFO 6536 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: 6
+2021-12-05 20:35:40.762  INFO 6536 --- [XNIO-1 task-15] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:hello"
+2021-12-05 20:35:41.162  INFO 6536 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: hello
+2021-12-05 20:35:43.371  INFO 6536 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : {"op": "play", "guildId": "897667014796144661", "track": "QAAAewIAFkFkZWxlIC0gSGVsbG8gKEx5cmljcykAC0FxdWEgTHlyaWNzAAAAAAAEiCgAC2JlMTJCQzVwUUxFAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9YmUxMkJDNXBRTEUAB3lvdXR1YmUAAAAAAAAAAA==", "startTime": 0, "endTime": 0, "noReplace": false}
+2021-12-05 20:39:49.221 ERROR 6536 --- [XNIO-1 task-1] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:60720
+2021-12-05 20:39:54.595  INFO 6536 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:46000 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60 seconds with key music-node
+2021-12-05 20:39:58.364 ERROR 6536 --- [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:34970
+2021-12-05 20:39:59.064 ERROR 6536 --- [XNIO-1 task-3] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:33420
+2021-12-05 20:40:12.894  INFO 6536 --- [XNIO-1 task-4] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:47416
+2021-12-05 20:40:12.899  INFO 6536 --- [XNIO-1 task-4] lavalink.server.io.SocketServer          : Connection successfully established from Lavalink.py
+2021-12-05 20:40:12.902  INFO 6536 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : {"op": "configureResuming", "key": "music-node", "timeout": 60}
+2021-12-05 20:40:14.788  INFO 6536 --- [XNIO-1 task-5] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:47420
+2021-12-05 20:40:14.806  INFO 6536 --- [XNIO-1 task-5] lavalink.server.io.SocketServer          : Connection successfully established from Lavalink.py
+2021-12-05 20:40:14.822  INFO 6536 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : {"op": "configureResuming", "key": "music-node", "timeout": 60}
+2021-12-05 20:40:54.597  INFO 6536 --- [pool-1-thread-1] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-12-05 20:42:10.036 ERROR 6536 --- [XNIO-1 task-6] l.server.io.HandshakeInterceptorImpl     : Authentication failed from /172.18.0.1:56862

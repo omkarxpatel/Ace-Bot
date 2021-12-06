@@ -17,7 +17,10 @@ def setup(bot):
     bot.add_cog(Utility(bot))
     
       
-class Utility(commands.Cog, name="<:users:907302669922738187> Utility Help", command_attrs=dict(alias=['utility', 'info']), description="Statistic/misc commands to look stats and more\n`{prefix}help info`\n`{prefix}help utility`"):
+class Utility(commands.Cog, name="<:users:907302669922738187> Utility", command_attrs=dict(alias=['utility', 'info'], emoji="<:users:907302669922738187>"), description="Statistic/misc commands to look stats and more\n`{prefix}help info`\n`{prefix}help utility`"):
+    """
+    Statistic/misc commands to look stats and more
+    """
     def __init__(self, bot):
         self.bot = bot
         self.random = random.SystemRandom()
@@ -203,8 +206,8 @@ class Utility(commands.Cog, name="<:users:907302669922738187> Utility Help", com
     @commands.command(aliases=['owner', 'botinfo'])
     async def info(self, ctx): 
         embed = discord.Embed(title=f"{self.bot.user.name}\'s Info!", color = discord.Color.green())
-        embed.add_field(name="<:developerdarkblue:915125525889036299> **Developer:**", value=f"[Squirrels#2499](https://www.youtube.com/watch?v=dQw4w9WgXcQ \"Hovertext\")", inline=True)
-        embed.add_field(name="<:server:907301216743207002> **Guilds:**", value=len(self.bot.guilds), inline=True)
+        embed.add_field(name="<:developerdarkblue:915125525889036299> **Owner:**", value=f"[Squirrels#2499](https://www.youtube.com/watch?v=dQw4w9WgXcQ \"Hovertext\")", inline=True)
+        embed.add_field (name="<:server:907301216743207002> **Guilds:**", value=len(self.bot.guilds), inline=True)
         embed.add_field(name="<:members:907302642542325771>** Members:**", value=f"{len(self.bot.users):,}", inline = True)
         embed.add_field (name="<:commands:907319588033802240> **Commands:**", value = len(self.bot.commands), inline = True)
         embed.add_field(name=f"\U0001f3d3 **  Ping:**", value= f"{round(self.bot.latency * 1000)} ms", inline=True)
@@ -378,3 +381,9 @@ class Utility(commands.Cog, name="<:users:907302669922738187> Utility Help", com
                 return await ctx.reply('You are supposed to mention at least 4 points to plot a graph!', mention_author=False)
         filen = await functions.get_graph(self.bot, *points)
         await ctx.send(file=filen)
+
+    @commands.command()
+    async def yt(self, ctx: commands.Context, *, term: str):
+        result = await functions.get_links(self.bot, term)
+        button = buttons.YTDropdownView(context=ctx, lists=result, bot=self.bot)
+        await ctx.reply(result[0][2], view=button)

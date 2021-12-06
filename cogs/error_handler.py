@@ -4,7 +4,7 @@ import traceback
 import discord
 import humanize
 from datetime import datetime as dt
-from utils.errors import OnCooldown
+from utils.errors import OnCooldown, NotRegistered
 from discord.ext import commands
 
 class ServerInvite(discord.ui.View):
@@ -25,7 +25,9 @@ class ErrorHandler(commands.Cog, command_attrs=dict(hidden=True)):
         if isinstance(error, OnCooldown):
           time = humanize.precisedelta(dt.utcnow() - error.time)
           em = discord.Embed(title="Command is currently on cooldown!", description=f"Try again in `{time}`")
-          return await ctx.send(embed=em) 
+          return await ctx.send(embed=em)
+        if isinstance(error, NotRegistered):
+            await ctx.reply("Seems like you are not registered! Do so by using `ace.setup`", mention_author=False)
         if isinstance(error, commands.BadArgument):
             await ctx.send(f"One or more of the arguments given was invalid. Please try again")
         else:

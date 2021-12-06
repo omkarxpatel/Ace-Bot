@@ -11,7 +11,45 @@ class Google(discord.ui.View):
         query = quote_plus(query)
         url = f'https://www.google.com/search?q={query}'
         self.add_item(discord.ui.Button(label='Click Here', url=url))
+
+class YTDropdown(discord.ui.Select):
+    def __init__(self, **kwargs):
+        self.list: List[str] = kwargs.get('lists')
+        options = []
+        counter = 0
+        for title, uploader, link in self.list:
+            if counter == 0:
+                default = True
+            else:
+                default = False
+            my_class = discord.SelectOption(label=uploader, description=title, value=f"{counter}", emoji="<:youtube:917124931635003412>", default=default)
+            options.append(my_class)
+            counter += 1
+        super().__init__(placeholder=None,min_values=1, max_values=1, options=options)
+
+    async def callback(self, interaction: discord.Interaction):
+        values = self.values[0]
+        await interaction.message.edit(self.list[int(values)][2])
         
+class YTDropdownView(discord.ui.View):
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.ctx: commands.Context = kwargs.get('context')
+        self.bot = kwargs.get('bot') 
+        self.list: List[str] = kwargs.get('lists')
+        self.add_item(YTDropdown(lists=self.list))
+
+    @discord.ui.button(style=discord.ButtonStyle.green, label="Play", row=1)
+    async def play(self, button: discord.ui.Button, interaction: discord.Interaction):
+        command = self.bot.get_command('play')
+        vc = interaction.user.voice.channel
+        await self.ctx.invoke(command, )
+        await interaction.response.send_message(f"Joining `#{vc}`")
+        
+    @discord.ui.button(style=discord.ButtonStyle.red, label="Pause", row=1)
+    async def pause(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await interaction.response.send_message(f"⏸️Pausing the player")
+
 
 class InteractiveView(discord.ui.View):
     def __init__(self):
@@ -479,3 +517,87 @@ class RockPaperScissors(discord.ui.View):
             return win_2
         else:
             return win_1
+
+class ButtonPaginator(discord.ui.View):
+    def __init__(self, another_list: list, ctx: commands.Context, **kwargs):
+        super().__init__(timeout=30)
+        self.value: int = 0
+        self.some_list: List[discord.Embed] = another_list
+        self.ctx: commands.Context = ctx
+
+    async def on_timeout(self) -> None:
+        for button in self.children:
+            button.disabled = True
+        await self.message.edit(embed=self.some_list[self.value], view=self)
+
+    async def interaction_check(self, interaction: discord.Interaction):
+        if self.ctx.author == interaction.user:
+            return True
+        else:
+            embed = discord.Embed(description=f"This isn't your embed and thus you can't react to it! If you want to, open a prompt for yourself. Use `{self.ctx.prefix}help {self.ctx.command.name}` for more info!", color = self.ctx.bot.theme)
+            return await interaction.response.send_message(embed=embed, ephemeral=True)         
+            
+
+    @discord.ui.button(style=discord.ButtonStyle.blurple, emoji="\N{BLACK LEFT-POINTING DOUBLE TRIANGLE}")
+    async def first(self, button: discord.ui.Button, interaction: discord.Interaction):
+        print(await self.interaction_check(interaction))
+        self.value = 0
+        self.some_list[0].set_footer(text=f"1/{len(self.some_list)}")
+        self.children[0].disabled = True
+        self.children[1].disabled = True
+        self.children[3].disabled = False
+        self.children[4].disabled = False
+        await interaction.message.edit(embed=self.some_list[0], view=self)
+
+    @discord.ui.button(style=discord.ButtonStyle.blurple, emoji="⬅️")
+    async def previous(self, button: discord.ui.Button, interaction: discord.Interaction):
+        if self.value - 1 < 0:
+            return
+        if self.value - 1 == 0:
+            self.children[0].disabled = True
+            self.children[1].disabled = True
+            self.children[3].disabled = False
+            self.children[4].disabled = False
+            self.value -= 1
+        else:
+            self.value -= 1
+            self.children[0].disabled = False
+            self.children[1].disabled = False
+            self.children[3].disabled = False
+            self.children[4].disabled = False
+        self.some_list[self.value].set_footer(text=f"{self.value+1}/{len(self.some_list)}")
+        await interaction.message.edit(embed=self.some_list[self.value], view=self)
+
+    @discord.ui.button(style=discord.ButtonStyle.blurple, emoji="⏹️")
+    async def stop(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await interaction.message.edit(view=None)
+
+    @discord.ui.button(style=discord.ButtonStyle.blurple, emoji="➡️")
+    async def next(self, button: discord.ui.Button, interaction: discord.Interaction):
+        if self.value + 1 > len(self.some_list) - 1:
+            return
+        if self.value + 1 == len(self.some_list) - 1:
+            self.value += 1
+            self.children[0].disabled = False
+            self.children[1].disabled = False
+            self.children[3].disabled = True
+            self.children[4].disabled = True
+        else:
+            self.value += 1
+            self.children[0].disabled = False
+            self.children[1].disabled = False
+            self.children[3].disabled = False
+            self.children[4].disabled = False
+        self.some_list[self.value].set_footer(text=f"{self.value+1}/{len(self.some_list)}")
+        await interaction.message.edit(embed=self.some_list[self.value], view=self)
+
+    @discord.ui.button(style=discord.ButtonStyle.blurple, emoji="\N{BLACK RIGHT-POINTING DOUBLE TRIANGLE}")
+    async def last(self, button: discord.ui.Button, interaction: discord.Interaction):
+        if self.value != (len(self.some_list) - 1):
+            self.value = len(self.some_list) - 1
+            self.children[0].disabled = False
+            self.children[1].disabled = False
+            self.children[3].disabled = True
+            self.children[4].disabled = True
+            self.some_list[self.value].set_footer(text=f"{len(self.some_list)}/{len(self.some_list)}")
+            await interaction.message.edit(embed=self.some_list[self.value], view=self)

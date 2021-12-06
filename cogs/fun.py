@@ -1,56 +1,20 @@
 import asyncio
 import discord
 import random
-import re
-from io import BytesIO
 from utils import buttons
 from discord.ext import commands
-from utils import slash_util
+from utils import functions
 
 
 def setup(bot):
     bot.add_cog(FunClass(bot))
 
-class Spotify:
-      def __init__(self, *, bot, member) -> None:
-        self.member = member
-        self.bot = bot
-        self.embed = discord.Embed(title=f"{member.display_name} is Listening to Spotify", color = discord.Color.green())
-        self.regex = "(https\:\/\/open\.spotify\.com\/artist\/[a-zA-Z0-9]+)"
-        self.headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'}
 
-      @staticmethod
-      async def fetch_from_api(bot, activity: discord.Spotify):
-         act = activity
-         base_url = "https://api.jeyy.xyz/discord/spotify"
-         params = {'title': act.album, 'cover_url': act.album_cover_url, 'artists': act.artists, 'duration_seconds': act.duration.seconds, 'start_timestamp': act.start.timestamp()}
-         s = await bot.session.get(base_url, params=params)
-         buffer = BytesIO(await s.read())
-         return discord.File(fp=buffer, filename="spotify.png")
- 
 
-      async def get_embed(self):  
-          activity = discord.utils.find(lambda activity: isinstance(activity, discord.Spotify), self.member.activities)
-          if not activity:
-              return False
-          url = activity.track_url
-          result = await self.bot.session.get(activity.track_url, headers=self.headers)
-          text = await result.text()
-          my_list = re.findall(self.regex, text)
-          artists = activity.artists
-          final = sorted(set(my_list), key=my_list.index)
-          total = len(artists)
-          final_total = final[0:total]
-          string = ""
-          for x in final_total:
-              string += f"[{artists[final_total.index(x)]}]({x}), "
-          final_string = string[:-2]
-          image = await self.fetch_from_api(self.bot, activity)
-          self.embed.description = f"**Artists**: {final_string}\n**Album**: [{activity.album}]({url})"
-          self.embed.set_image(url="attachment://spotify.png")
-          return self.embed, image
-
-class FunClass(commands.Cog, name="<:controller:915124129257111582> Fun Help", description="Fun commands to use around the server\n`{prefix}help fun`\n`{prefix}help games`", command_attrs=dict(alias=['games', 'fun'])):
+class FunClass(commands.Cog, name="<:controller:915124129257111582> Fun", description="Fun commands to use around the server\n`{prefix}help fun`\n`{prefix}help games`", command_attrs=dict(alias=['games', 'fun'], emoji="<:controller:915124129257111582>")):
+    """
+    Fun commands to use around the server
+    """
     def __init__(self, bot):
         self.bot = bot
 
@@ -162,7 +126,7 @@ class FunClass(commands.Cog, name="<:controller:915124129257111582> Fun Help", d
     async def spotify(self, ctx: commands.Context, member: discord.Member = None):
         member = member or ctx.author
         async with ctx.typing():
-            spotify = Spotify(bot=self.bot, member=member)
+            spotify = functions.Spotify(bot=self.bot, member=member)
             embed = await spotify.get_embed()
             if not embed:
                 if member == ctx.author:

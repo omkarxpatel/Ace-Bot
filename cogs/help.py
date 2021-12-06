@@ -91,27 +91,62 @@ class Dropdown(discord.ui.Select):
     def __init__(self, **kwargs):
         self.context: commands.Context = kwargs.get('ctx')
         self.mapping: Dict[commands.Cog, List[commands.Command]] = kwargs.get('mapping')
+        self.new_mapping = [cog for cog in self.mapping.keys() if cog and not cog.__class__.__cog_settings__.get('hidden') and not cog.qualified_name == "Jishaku"]
         self.important: str = kwargs.get('important')
+        self.list: list = kwargs.get('lists')
+        self._value = 0
+        
 
         options = [
-            discord.SelectOption(label='Home Page', value='default'),
-            discord.SelectOption(label='Developer Help', description='Commands that only devs of the bot can use', emoji='<:developerdarkblue:915125525889036299>', value='<:developerdarkblue:915125525889036299> Developer Help'),
-            discord.SelectOption(label='Config Help', description='Configuration Commands to personalize the bot', emoji='<:utility:908438154841849927>', value='<:utility:908438154841849927> Config Help'),
-            discord.SelectOption(label='Economy Help', description='Economy commands based on real life', emoji='<:spades:915657207968833607>', value='<:spades:915657207968833607> Economy'),
-            discord.SelectOption(label='Fun Help', description='Fun commands to use around the server', emoji='<:controller:915124129257111582>', value='<:controller:915124129257111582> Fun Help'),
-            discord.SelectOption(label='Moderation Help', description='Moderation commands to moderate your server', emoji='<:moderation:907802138296606740>', value='<:moderation:907802138296606740> Moderation Help'),
-            discord.SelectOption(label='Utility Help', description='Utility/misc commands to look at stats and more', emoji='<:users:907302669922738187>', value='<:users:907302669922738187> Utility Help')                                    
+            discord.SelectOption(label='Home Page', value='default'),                                    
         ]
+        self.context.bot.loop.create_task(self.get_embeds())
+        for cog in self.mapping:
+            if cog is None or cog.__class__.__cog_settings__.get('hidden') or cog.qualified_name == 'Jishaku':
+                continue
+            name = ' '.join(cog.qualified_name.split()[1:]) + ' Help'
+            emoji = cog.__class__.__cog_settings__.get('emoji')
+            option = discord.SelectOption(label=name, value=cog.qualified_name, emoji=emoji, description=cog.__doc__)
+            options.append(option)
         super().__init__(placeholder='Select a Category', min_values=1, max_values=1, options=options)
+
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, value):
+        self._value = value
+
+    async def get_embeds(self):
+        self.list_of_embeds = []
+        self.constant = EmbedPlacer(important=self.important, mapping=self.mapping, ctx=self.context).generate_help_embed
+        self.list_of_embeds.append(self.constant)
+        for cog in self.mapping:
+            if cog is None or cog.__class__.__cog_settings__.get('hidden') or cog.qualified_name == "Jishaku" or cog == 'None':
+                continue
+            embed = EmbedPlacer(cog=cog, ctx=self.context, important=self.important)
+            if not embed:
+                continue
+            else:
+                self.list_of_embeds.append(embed.generate_cog_help)
+        return self.list_of_embeds
+        
+    @property
+    def get_list(self):
+        return self.list_of_embeds
+        
 
     async def callback(self, interaction: discord.Interaction):
         values = self.values[0]
         if values == 'default':
+            self._value = 0
             placer = EmbedPlacer(important=self.important, ctx=self.context, mapping=self.mapping)
             embed = placer.generate_help_embed
             await interaction.message.edit(embed=embed)
         else:
             cog = self.context.bot.get_cog(values)
+            self._value = tuple(self.new_mapping).index(cog) + 1
             placer = EmbedPlacer(cog=cog, ctx=self.context, important=self.important)
             embed = placer.generate_cog_help
             await interaction.message.edit(embed=embed)
@@ -123,8 +158,49 @@ class DropdownView(discord.ui.View):
         self.context: commands.Context = kwargs.get('ctx')
         self.mapping: Dict[commands.Cog, List[commands.Command]] = kwargs.get('mapping')
         self.important: str = kwargs.get('important')
-        self.add_item(Dropdown(ctx=self.context, mapping=self.mapping, important=self.important))
+        self.dropdown_class = Dropdown(ctx=self.context, mapping=self.mapping, important=self.important)
+        self.add_item(self.dropdown_class)
+        
+    @discord.ui.button(style=discord.ButtonStyle.blurple, label="First",row=0,emoji="⏪")
+    async def first(self, button: discord.ui.Button, interaction: discord.Interaction):
+        embeds = self.dropdown_class.get_list
+        if self.dropdown_class.value == 0:
+            return
+        self.dropdown_class.value = 0
+        await interaction.message.edit(embed=embeds[self.dropdown_class.value])
 
+    @discord.ui.button(style=discord.ButtonStyle.blurple, label="Previous", row=0, emoji="◀️")
+    async def previous(self, button: discord.ui.Button, interaction: discord.Interaction):
+        embeds = self.dropdown_class.get_list
+        if self.dropdown_class.value == 0:
+            return
+        self.dropdown_class.value -= 1
+        await interaction.message.edit(embed=embeds[self.dropdown_class.value])
+        
+
+
+    @discord.ui.button(style=discord.ButtonStyle.red, label="Close Embed", emoji="🗑",  row=0)
+    async def stop(self, button: discord.ui.Button, interaction: discord.Interaction):
+        try:
+            await interaction.message.delete()
+        except:
+            raise
+
+    @discord.ui.button(style=discord.ButtonStyle.blurple, label="Next", row=0, emoji="▶️")
+    async def next(self, button: discord.ui.Button, interaction: discord.Interaction):
+        embeds = self.dropdown_class.get_list
+        if self.dropdown_class.value == len(embeds):
+            return
+        self.dropdown_class.value += 1
+        await interaction.message.edit(embed=embeds[self.dropdown_class.value])
+
+    @discord.ui.button(style=discord.ButtonStyle.blurple, label="Last", row=0, emoji="⏩")
+    async def last(self, button: discord.ui.Button, interaction: discord.Interaction):
+        embeds = self.dropdown_class.get_list
+        if self.dropdown_class.value == len(embeds):
+            return
+        self.dropdown_class.value = len(embeds) - 1
+        await interaction.message.edit(embed=embeds[self.dropdown_class.value])
 
 def setup(bot):
     bot.add_cog(HelpCog(bot))
@@ -134,10 +210,9 @@ class Help(commands.HelpCommand):
     def __init__(self, **options):
         super().__init__(**options)
         self.important = "```fix\n(c) means command | (g) means group \n([]) is required  | (<>) is optional\n```"
-      
 
     async def send_command_help(self, command: commands.Command):
-        embed_placer = EmbedPlacer(ctx=self.context, command=command)
+        embed_placer = EmbedPlacer(ctx=self.context, command=command, important=self.important)
         embed = embed_placer.generate_command_help
         destination = self.get_destination()
         await destination.send(embed=embed)

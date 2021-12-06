@@ -3,6 +3,7 @@ import os
 import sys
 import aiohttp
 import discord
+import warnings
 import traceback
 from utils import slash_util
 from pathlib import Path
@@ -11,9 +12,25 @@ from discord.ext import commands
 from keep_alive import keep_alive
 from motor.motor_asyncio import AsyncIOMotorClient as MotorClient
 
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 #defines the restart_bot
 def restart_bot():
     os.execv(sys.executable, ['python'] + sys.argv)
+
+
+async def get_prefix(bot, message: discord.Message) -> list:
+    try:
+        prefix = bot.prefix[message.guild.id]
+    except KeyError:
+        request = await bot.db.prefix.find_one({'guild_id': message.guild.id})
+        if request is None:
+            prefix =  ['ace.', 'Ace.']
+        else:
+            bot.prefix[request['guild_id']] = [request['prefix']]
+            prefix = [request['prefix']]
+    except AttributeError:
+        prefix =  ['ace.', 'Ace.', 'I needed a prefix where no one else used it so then there would be less spam.']
+    return prefix
 
 class MyBot(slash_util.Bot):
     def __init__(self, **kwargs):
@@ -50,7 +67,7 @@ class MyBot(slash_util.Bot):
     
 
 #defines bot
-bot = MyBot(command_prefix=commands.when_mentioned_or( 'ace.', 'Ace.', 'I needed a prefix where no one else used it so then there would be less spam.'),
+bot = MyBot(command_prefix=get_prefix,
                    intents=discord.Intents.all(),
                    activity=discord.Activity(
                        type=discord.ActivityType.listening, name="ace.help"),
@@ -60,6 +77,8 @@ bot = MyBot(command_prefix=commands.when_mentioned_or( 'ace.', 'Ace.', 'I needed
 mongo = MotorClient(os.environ['MONGO']) 
 bot.db = mongo.discord
 bot.load_extension('jishaku')
+bot.prefix = {}
+
 
 
 #loading all files

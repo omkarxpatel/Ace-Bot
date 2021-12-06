@@ -7,8 +7,11 @@ def setup(bot):
     bot.add_cog(ModerationCog(bot))
 
 
-class ModerationCog(commands.Cog, name="<:moderation:907802138296606740> Moderation Help", 
-                    command_attrs=dict(alias=['mod', 'moderation']), description="Moderation commands to moderate your server\n`{prefix}help mod`\n`{prefix}help moderation`"):
+class ModerationCog(commands.Cog, name="<:moderation:907802138296606740> Moderation", 
+                    command_attrs=dict(alias=['mod', 'moderation'], emoji="<:moderation:907802138296606740>"), description="Moderation commands to moderate your server\n`{prefix}help mod`\n`{prefix}help moderation`"):
+    """
+    Moderation commands to moderate your server
+    """
     def __init__(self, bot):
         self.bot = bot
 

@@ -5,7 +5,7 @@ import datetime
 from typing import Optional
 from datetime import datetime as dt
 from discord.ext import commands
-from utils.errors import OnCooldown
+from utils.errors import OnCooldown, NotRegistered
 
 shop_entity = {
                 'fishing pole': {'alias': ['fishpole', 'fishing', 'pole'], 
@@ -32,21 +32,33 @@ def on_cooldown():
           else:
               raise OnCooldown(dateobject=date)
       return commands.check(predicate)
+
+def is_registered():
+      async def predicate(ctx: commands.Context):
+          request = await ctx.bot.db.economy.find_one({'_id': ctx.author.id})
+          if not request:
+                raise NotRegistered(ctx=ctx)
+          else:
+                return True
+      return commands.check(predicate)
+    
 # spades = '<:spades:914756982651633665>'
 spades = '<:currency:915664733644947536>'
 
 def setup(bot):
-    bot.add_cog(economy(bot))
+    bot.add_cog(Economy(bot))
 
 
-class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command_attrs=dict(alias=['economy', 'econ']), description="Economy commands related to real-life situations\n `ace.help economy`\n`ace.help econ`"):
+class Economy(commands.Cog, name="<:spades:915657207968833607> Economy", command_attrs=dict(alias=['economy', 'econ'], emoji="<:spades:915657207968833607>"), description="Economy commands related to real-life situations\n `ace.help economy`\n`ace.help econ`"):
+    """
+    Economy commands related to real-life situations
+    """
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
     async def setup(self, ctx):
         request = await self.bot.db.economy.find_one({"_id": ctx.author.id})
-        print(request)
         if request:
           return await ctx.reply("Seems like you are already registered!", mention_author=False)
         document = {"_id": ctx.author.id, "balance": 5000}
@@ -58,10 +70,9 @@ class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
 
     @commands.command()
     @on_cooldown()
+    @is_registered()
     async def beg(self, ctx):
         request = await self.bot.db.economy.find_one({"_id": ctx.author.id})
-        if not request:
-          return await ctx.reply("Seems like you are not registered! Do so by using `ace.setup`", mention_author=False)
         cooldown = dt.utcnow() + datetime.timedelta(seconds=60)
         cooldown_data = {"beg": cooldown}
         coins = random.randint(100,400)
@@ -75,10 +86,9 @@ class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
 
     @commands.command()
     @on_cooldown()
+    @is_registered()
     async def hourly(self, ctx):
         request = await self.bot.db.economy.find_one({"_id": ctx.author.id})
-        if not request:
-          await ctx.reply("Seems like you are not registered! Do so by using `ace.setup`", mention_author=False)
         cooldown = dt.utcnow() + datetime.timedelta(hours=1)
         total = request['balance'] + 1500
         data = {"balance": total}
@@ -93,10 +103,9 @@ class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
 #86400 seconds cooldown
     @commands.command()
     @on_cooldown()
+    @is_registered()
     async def daily(self, ctx):
         request = await self.bot.db.economy.find_one({"_id": ctx.author.id})
-        if not request:
-          await ctx.reply("Seems like you are not registered! Do so by using `ace.setup`", mention_author=False)
         cooldown = dt.utcnow() + datetime.timedelta(days=1)
         total = request['balance'] + 7500
         data = {"balance": total}
@@ -110,10 +119,9 @@ class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
 #604800 seconds cooldown
     @commands.command()
     @on_cooldown()
+    @is_registered()
     async def weekly(self, ctx):
         request = await self.bot.db.economy.find_one({"_id": ctx.author.id})
-        if not request:
-          await ctx.reply("Seems like you are not registered! Do so by using `ace.setup`", mention_author=False)
         cooldown = dt.utcnow() + datetime.timedelta(days=7)
         total = request['balance'] + 35000
         data = {"balance": total}
@@ -127,10 +135,9 @@ class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
 #2629746 seconds cooldown
     @commands.command()
     @on_cooldown()
+    @is_registered()
     async def monthly(self, ctx):
         request = await self.bot.db.economy.find_one({"_id": ctx.author.id})
-        if not request:
-          await ctx.reply("Seems like you are not registered! Do so by using `ace.setup`", mention_author=False)
         cooldown = dt.utcnow() + datetime.timedelta(days=30)
         total = request['balance'] + 100000
         data = {"balance": total}
@@ -142,11 +149,10 @@ class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['balance'])
+    @is_registered()
     async def bal(self, ctx, user: discord.Member = None):
         user = user or ctx.author
         request = await self.bot.db.economy.find_one({"_id": user.id})
-        if not request:
-          await ctx.reply("Seems like you are not registered! Do so by using `ace.setup`", mention_author=False)
         balance = request["balance"]
         wallet = request.get('wallet')
         if not wallet:
@@ -158,10 +164,9 @@ class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['dep'])
+    @is_registered()
     async def deposit(self, ctx, amount:int):
         request = await self.bot.db.economy.find_one({"_id": ctx.author.id})
-        if not request:
-          return await ctx.reply("Seems like you are not registered! Do so by using `ace.setup`", mention_author=False)
         balance = request["balance"]
         wallet = request.get("wallet")
         if not wallet:
@@ -186,10 +191,9 @@ class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
         await ctx.send(embed=embed)
 
     @commands.command(name="withdraw", aliases=['with'])
+    @is_registered()
     async def _with(self, ctx: commands.Context, amount:int):
         request = await self.bot.db.economy.find_one({"_id": ctx.author.id})
-        if not request:
-          return await ctx.reply("Seems like you are not registered! Do so by using `ace.setup`", mention_author=False)
         balance = request["balance"]
         wallet = request.get("wallet")
         if not wallet:
@@ -211,11 +215,10 @@ class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
     
     @commands.command(aliases=['og'])
     @commands.is_owner()
+    @is_registered()
     async def ownergive(self, ctx: commands.Context, amount: int, user: discord.User = None):
         user = user or ctx.author
         requestuser = await self.bot.db.economy.find_one({"_id": user.id})
-        if not requestuser:
-          await ctx.reply("Seems like they are not registered! Make them do so by using `ace.setup`", mention_author=False)
         total = requestuser['balance'] + amount
         data = {"balance": total}
         embed = discord.Embed(title=f'Here are your coins, {ctx.author.name}', description=f'`{amount}` {spades} have been placed in `{user}\'s` wallet.\nTheir current balance is `{total}` {spades}', timestamp=discord.utils.utcnow(), color = discord.Color.green())
@@ -224,11 +227,10 @@ class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
         await ctx.reply(embed=embed)
 
     @commands.group(invoke_without_command=True)
+    @is_registered()
     async def shop(self, ctx: commands.Context):
         user = ctx.author
         request = await self.bot.db.economy.find_one({"_id": user.id})
-        if not request:
-            await ctx.reply("Seems like you are not registered! Do so by using `ace.setup`", mention_author=False)
         balance = request["balance"]
         embed = discord.Embed(title=f"Shop items", description=f'Your current wallet: `{balance:,}` {spades}\n')
         embed.set_footer(text="Type ace.bal to see your balance")
@@ -252,10 +254,9 @@ class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
         
 
     @commands.command(aliases=['share'])
+    @is_registered()
     async def give(self, ctx: commands.Context, amount:int, user: discord.User):
       request = await self.bot.db.economy.find_one({"_id": ctx.author.id})
-      if not request:
-        await ctx.reply("Seems like you are not registered! Do so by using `ace.setup`", mention_author=False)
       requestuser = await self.bot.db.economy.find_one({"_id": user.id})
       if not requestuser:
         await ctx.reply("Seems like they are not registered! Do so by using `ace.setup`", mention_author=False)
@@ -296,10 +297,9 @@ class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
         await ctx.reply(embed=embed)
     
     @commands.command(aliases=['gamble'])
+    @is_registered()
     async def bet(self, ctx: commands.Context, amount: int):
       request = await self.bot.db.economy.find_one({"_id": ctx.author.id})
-      if not request:
-          await ctx.reply("Seems like you are not registered! Do so by using `ace.setup`", mention_author=False)
       balance = request["balance"]
       if amount < 0:
         return await ctx.send('You can not bet a negative amount.')
@@ -333,11 +333,10 @@ class economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
         await ctx.send(embed=embed)
 
     @commands.command()
+    @is_registered()
     async def slots(self, ctx: commands.Context, bet: int):
         request = await self.bot.db.economy.find_one({"_id": ctx.author.id})
         counter = 0
-        if not request:
-            await ctx.reply("Seems like you are not registered! Do so by using `ace.setup`", mention_author=False)
         string_list = ["【 <a:slotsroll:915158443697000469> 】", "【 <a:slotsroll:915158443697000469> 】", "【 <a:slotsroll:915158443697000469> 】"]
         embed = discord.Embed(title="Rolling the slot machine", description='|'.join(string_list))
         message = await ctx.send(embed=embed)
