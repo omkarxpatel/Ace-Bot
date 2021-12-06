@@ -17,7 +17,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 def restart_bot():
     os.execv(sys.executable, ['python'] + sys.argv)
 
-
+webhook_var = os.environ["WEBHOOK"]
 async def get_prefix(bot, message: discord.Message) -> list:
     try:
         prefix = bot.prefix[message.guild.id]
@@ -36,8 +36,11 @@ class MyBot(slash_util.Bot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.bot_session = aiohttp.ClientSession()
-        self.webhook = discord.SyncWebhook.from_url('https://discord.com/api/webhooks/916082535119847464/XX2dhZGAgSNgY67wBJLoKdWO800QvlNLsmdjPmrVWjfmoWc-XXLQBb_qBh1yr66HPGQ2')
-
+        self.webhook = discord.SyncWebhook.from_url(webhook_var)
+        self.spotify_client_id = os.environ["SPOTIFY_CLIENT_ID"]
+        self.spotify_client_secret = os.environ["SPOTIFY_CLIENT_SECRET"]
+        self.spotify_session = None
+        
     # jishaku environment variables  
     os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
     os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
@@ -71,8 +74,7 @@ bot = MyBot(command_prefix=get_prefix,
                    intents=discord.Intents.all(),
                    activity=discord.Activity(
                        type=discord.ActivityType.listening, name="ace.help"),
-                    owner_ids=[706242014056022027, 914596711010287698, 801190526350786560],
-                    help_command=None)
+                    owner_ids=[706242014056022027, 914596711010287698, 801190526350786560])
 
 mongo = MotorClient(os.environ['MONGO']) 
 bot.db = mongo.discord
@@ -108,5 +110,5 @@ try:
 
 #offline cmd
 finally:
-    webhook = discord.SyncWebhook.from_url('https://discord.com/api/webhooks/916082535119847464/XX2dhZGAgSNgY67wBJLoKdWO800QvlNLsmdjPmrVWjfmoWc-XXLQBb_qBh1yr66HPGQ2')
+    webhook = discord.SyncWebhook.from_url(webhook_var)
     webhook.send(content='Ace Bot is Now Offline 🛑')

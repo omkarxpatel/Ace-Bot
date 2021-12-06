@@ -169,6 +169,7 @@ class FunClass(commands.Cog, name="<:controller:915124129257111582> Fun", descri
         pp = random.choice(sizes)
         embed = discord.Embed(title="Penis size", description=f"{member.mention}\'s penis size is:\n8{pp}D")
         await ctx.send(embed=embed)
+
     @commands.command()
     async def uptime(self, ctx):
       await ctx.send('My uptime is: `147 days, 23 hours, and 12 minutes`')
@@ -181,4 +182,3 @@ class FunClass(commands.Cog, name="<:controller:915124129257111582> Fun", descri
         """
         async with ctx.typing():
             return await ctx.send(embed=await self.reddit(random.choice(['memes', 'dankmemes'])))
-

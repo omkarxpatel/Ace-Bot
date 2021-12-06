@@ -10,6 +10,7 @@ import datetime
 import textwrap
 import os
 import traceback
+from utils.buttons import ButtonPaginator
 from contextlib import redirect_stdout
 
 def setup(bot):
@@ -252,3 +253,17 @@ class DeveloperCog(commands.Cog, name="<:developerdarkblue:915125525889036299> D
     async def credits(self, ctx):
       embed = discord.Embed(title="Acknowledgements", description="`Squirrels#2499`\n╰ Owner\n`Rose🌹#1328`\n╰ Developer :)\n`DaPandaOfficial🐼#5684`\n╰ Helped with the music cog and parts of commands :)\n`Official DPY server`\n╰ Helped answer my dumb questions\n╰ `discord.gg/dpy`")
       await ctx.send(embed=embed)
+
+    @commands.command(aliases=['sl'])
+    @commands.is_owner()
+    async def serverlist(self, ctx):
+        embed_list = [] 
+        guild_list = self.bot.guilds
+        guild_seperated = [guild_list[i:i + 5] for i in range(0, len(guild_list), 5)]
+        for guilds in guild_seperated:
+            em = discord.Embed(title="Server List", description="")
+            for guild in guilds:
+                em.description += f"**__{guild.name}__**\nﾠ**Guild Information:**\nㅤ**Owner:** `{guild.owner}` <:owner:907296832642764822>\nㅤㅤ**Owner ID:** `{guild.owner.id}`\nㅤㅤ**Guild ID:** `{guild.id}`\n\n"
+            embed_list.append(em)
+        view = ButtonPaginator(another_list=embed_list, ctx=ctx)
+        view.message = await ctx.send(embed=embed_list[0], view=view)

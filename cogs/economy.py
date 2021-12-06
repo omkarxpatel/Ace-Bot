@@ -187,7 +187,7 @@ class Economy(commands.Cog, name="<:spades:915657207968833607> Economy", command
         await self.bot.db.economy.update_one({'_id': ctx.author.id}, {'$set': data})
         print('done')
         print(await self.bot.db.economy.find_one({"_id": ctx.author.id}))
-        embed = discord.Embed(title=f'{ctx.author.name}, `{amount}` {spades} deposited.',description=f'**Current Wallet:** `{data["balance"]:,}` {spades}\n**Current Bank:** `{wallet[0]:,  }/100,000` {spades}', timestamp=discord.utils.utcnow(), color = discord.Color.green())
+        embed = discord.Embed(title=f'{ctx.author.name}, `{amount}` {spades} deposited.',description=f'**Current Wallet:** `{data["balance"]:,}` {spades}\n**Current Bank:** `{wallet[0]:,}/100,000` {spades}', timestamp=discord.utils.utcnow(), color = discord.Color.green())
         await ctx.send(embed=embed)
 
     @commands.command(name="withdraw", aliases=['with'])
