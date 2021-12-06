@@ -163,11 +163,11 @@ class FunClass(commands.Cog, name="<:controller:915124129257111582> Fun", descri
 
     @commands.command(aliases=['penis'])
     async def pp(self, ctx, member: discord.Member):
+        member = member or ctx.author
         await ctx.send(":eggplant: Looking in your pants ...", delete_after=2)
         await asyncio.sleep(2)
-        sizes = "="*random.randint(1,12)
-        pp = random.choice(sizes)
-        embed = discord.Embed(title="Penis size", description=f"{member.mention}\'s penis size is:\n8{pp}D")
+        pp = "="*random.randint(1,12)
+        embed = discord.Embed(title="Penis size", description=f"{member.mention}\'s penis size is: 8{pp}D")
         await ctx.send(embed=embed)
 
     @commands.command()

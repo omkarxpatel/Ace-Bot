@@ -40,6 +40,7 @@ class MyBot(slash_util.Bot):
         self.spotify_client_id = os.environ["SPOTIFY_CLIENT_ID"]
         self.spotify_client_secret = os.environ["SPOTIFY_CLIENT_SECRET"]
         self.spotify_session = None
+        self.theme = 0xFFFFFF
         
     # jishaku environment variables  
     os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"

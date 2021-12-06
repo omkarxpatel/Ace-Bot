@@ -94,7 +94,7 @@ class Spotify:
     async def fetch_from_api(bot, activity: discord.Spotify):
         act = activity
         base_url = "https://api.jeyy.xyz/discord/spotify"
-        params = {'title': act.album, 'cover_url': act.album_cover_url, 'artists': act.artists[0], 'duration_seconds': act.duration.seconds, 'start_timestamp': act.start.timestamp()}
+        params = {'title': act.album, 'cover_url': act.album_cover_url, 'artists': act.artists[0], 'duration_seconds': act.duration.seconds, 'start_timestamp': int(act.start.timestamp())}
         connection = await bot.session.get(base_url, params=params)
         buffer = BytesIO(await connection.read())
         return discord.File(fp=buffer, filename="spotify.png")
