@@ -65,7 +65,7 @@ class Spotify:
                 type_token = auth_js['token_type']
                 token = auth_js['access_token']
                 auth_token = f"{type_token} {token}"
-                self.bot.spotify_session = (f"{type_token} {token}", timenow)
+                self.bot.spotify_session = (auth_token, timenow)
                 print('Generated new Token')
             else:
                 auth_token = self.bot.spotify_session[0]

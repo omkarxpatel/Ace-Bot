@@ -23,11 +23,14 @@ class ModerationCog(commands.Cog, name="<:moderation:907802138296606740> Moderat
             return await ctx.reply('You can\'t ban yourself...?')
         if ctx.author.top_role.position <= member.top_role.position:
             return await ctx.reply('You can\'t ban a member who has an equal or higher role than yourself')
-        elif ctx.author.top_role.position > member.top_role.position and ctx.guild.me.top_role <= member.top_role.position:
+        elif ctx.author.top_role.position > member.top_role.position and ctx.guild.me.top_role.position <= member.top_role.position:
             return await ctx.reply('I can\'t ban a member whose role position is higher than mine.')
         ban = discord.Embed(title=f":boom: Banned {member.name}!", description=f"Reason: {reason}\nBy: {ctx.author.mention}")
         await ctx.message.delete()
-        await member.send(embed=ban)
+        try:
+            await member.send(embed=ban)
+        except (discord.HTTPException, discord.Forbidden):
+            await ctx.send(f'Couldn\'t send DM to {member.mention}')
         await asyncio.sleep(0.2)
         await member.ban(reason=reason)
         await ctx.send(embed=ban)
@@ -38,14 +41,17 @@ class ModerationCog(commands.Cog, name="<:moderation:907802138296606740> Moderat
     @commands.bot_has_permissions(kick_members=True)
     async def kick(self, ctx, member: discord.Member, *, reason="No reason provided"):
         if ctx.author == member:
-            return await ctx.reply('You can\'t ban yourself...?')
+            return await ctx.reply('You can\'t kick yourself...?')
         if ctx.author.top_role.position <= member.top_role.position:
-            return await ctx.reply('You can\'t ban a member who has an equal or higher role than yourself')
-        elif ctx.author.top_role.position > member.top_role.position and ctx.guild.me.top_role <= member.top_role.position:
-            return await ctx.reply('I can\'t ban a member whose role position is higher than mine.')
+            return await ctx.reply('You can\'t kick a member who has an equal or higher role than yourself')
+        elif ctx.author.top_role.position > member.top_role.position and ctx.guild.me.top_role.position <= member.top_role.position:
+            return await ctx.reply('I can\'t kick a member whose role position is higher than mine.')
         kick = discord.Embed(title=f":boom: Kicked {member.name}!", description=f"Reason: {reason}\nBy: {ctx.author.mention}")
         await ctx.message.delete()
-        await member.send(embed=kick)
+        try:
+            await member.send(embed=kick)
+        except (discord.HTTPException, discord.Forbidden):
+            await ctx.send(f'Couldn\'t send DM to {member.mention}')
         await ctx.channel.send(embed=kick)
         await member.kick(reason=reason)   
 
